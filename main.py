@@ -13,18 +13,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-# 1. gpu 세팅
-device = 0 if torch.cuda.is_available() else -1
-
-if device :
-    print("GPU 세팅 성공!")
-
 # 2. model load
 pipe = pipeline(
     "text-classification", 
     model="j-hartmann/emotion-english-distilroberta-base",
-    device=device
 )
 
 print("모델 로드 완료")
@@ -39,8 +31,9 @@ def predict(data : dict):
     text = data.get("text","")
 
     # 2. 문장의 감정을 분석
-    raw_result = pipe(text)
-    print(f"raw_Result = {raw_result}")
+    raw_result = pipe(text)[0]
+    # print(f"raw_Result = {raw_result}")
+
     # 3. 분석 결과를 return
 
     return {

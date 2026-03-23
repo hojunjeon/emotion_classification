@@ -78,6 +78,7 @@
   <script>
     async function analyze() {
       const text = document.getElementById("inputText").value;
+      const API_URL = "https://emotion-hez0.onrender.com/";
 
       if (!text) {
         alert("문장을 입력하세요!");
@@ -85,7 +86,7 @@
       }
 
       try {
-        const response = await fetch("emotion-classification-cb2db19pk-hojunjeons-projects.vercel.app", {
+        const response = await fetch(`${API_URL}/predict`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
